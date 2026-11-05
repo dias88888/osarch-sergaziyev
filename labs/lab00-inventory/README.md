@@ -10,9 +10,7 @@
 
 ```bash
 sysctl -n machdep.cpu.brand_string
-sysctl hw.physicalcpu hw.logicalcpu
-system_profiler SPMemoryDataType
-sysctl hw.memsize
+sysctl hw.physicalcpu hw.logicasysctl hw.physicalcpu hw.logicasysctl hw.physicalcpuize
 system_profiler SPStorageDataType SPNVMeDataType
 diskutil info /
 df -h /
@@ -29,21 +27,18 @@ sw_vers; uname -m
 |---|---|---|
 | Процессор | Apple M2 | `sysctl -n machdep.cpu.brand_string` |
 | Ядра / потоки | 8 физических / 8 логических (SMT нет) | `sysctl hw.physicalcpu hw.logicalcpu` |
-| Память, объём | 16 ГБ (17 179 869 184 байт) | `sysctl hw.memsize` |
-| Память, тип и модули | LPDDR5, Hynix. Одна запись, слотов и �| Память, тип �е�| Память, тип и модули | LPDDR5, Hynix. Одна запись, слотов и �| Память, тип �е�| Память�р| Паь | Команда не показы| Память, тип и мод�e Silicon, поэтому значе| Память,�мерено | `system_profiler SPMemoryDataType` |
-| Диск, м�| Д�ль | APPLE SSD AP0256Z, 251 ГБ, GPT | `system_profiler SPNVMeDataType` |
-| Диск, тип| Диск, тип| �abric), SMART Verified | `system_profiler SPStorageDataType` |
-| Свобо�| Свобо�| Свобо�| Свобо�| Свобо�| Своо из 245,11 Г�| Свобо�| Свобо�| Свобо�| Свобо�| Свобо�| С�taT| Свобо�| Свобо�| Свобо�| Свобо�| Свобо�| Своо из 245,11 Г�| Свобо�| Свобо�| Свобвенную загрузку (iBoot). System Firmware Version 20457.1.29. Дату прошивки macOS не выводит | `system_profiler SPHardwareDataType` |
+| Память, объём | 16 ГБ (17 179 869 184 байт) | `| Память, объём | 16 ГБ (17 179 869 184 байт) | `| Память, обз| Память, объём� сменных модуле�| Память, объём | 16 ГБ (17 179 869 184 байт) | `| Память, объём | 16 ГБ (17 179 869 184 байт) | `| Порость | Команда не показывает частоту на Apple Silicon, поэтому значение не изм| Память, объём | 16 ГБ (17 179 8` |
+| Диск, м�| Д�ль | APPLE SSD AP0256Z, 251 | Диск, м�| Д�ль | APPLE SSD AP0256Z, 251 | Диск, �п | SSD, NVMe (Apple Fabric), SMART Verified | `system_profiler SPStor| eDataType` |
+| Свободно на томе для ВМ | 178,86 ГБ свободно из 245,11 Г�| Свободно на томе для ВМ | 178,86 ГБ свободaType`, `df -h /System/Volumes/Data` |
+| Прошивка | Не BIOS и не UEFI: Apple Silicon использует собственную загрузку (iBoot). System Firmware Version 20457.1.29. Дату прошивки macOS не выводит | `system_profiler SPHardwareDataType` |
 | Аппаратная виртуализация | Есть и включена: `kern.hv_support: 1` (Hypervisor.framework) | `sysctl kern.hv_support` |
 
-Про виртуализацию: проверка `VMX` (термин Intel) на M2 ничего не вывела, потому что в архитектуре ARM такого флага нет. Поддержку показывает `kern.hv_support`.
-
-Важное для следующих лаб: процессор ARM, поэтому нужны ARM64-образы (Ubuntu Server ARM64, Windows 11 ARM). Для Lab 1 и Lab 2 надо уточнить у преподавателя, подойдёт ли это.
+Про виртуализацию: проверка `VMX` (термин Intel) на M2 ничего не вывела, потому что в архитектуре ARM такого флага нет. Подд�Про виртуализацию: проверка `VMX` (термин Intel) на M2 ничего не вывела, потому что в архитектуре ARM такого флага не11 ARM). Для Lab 1 и Lab 2 надо уточнить у преподавателя, подойдёт ли это.
 
 ## Что не сработало в первый раз
 
-1. **Команды Git в неправильной папке.** `git status`, `git add`, `git commit`, `git push` я запускал в домашней папке `~` и получил `fatal: not a git repository`. Git работает только внутри папки репозитория. Решение: `cd ~/osarch-sergaziyev` и повторить.
-2. **Push не прошёл по паролю.** GitHub ответил `Password authentication is not supported for Git operations`. Пароль аккаунта больше не принимается, нужен Personal Access Token. Решение: создать токен (Settings → Developer settings → Tokens, прав2. **Push не прошёл по паролю.** GitHub ответил `Password authentication is not supported for Git operations`. Пароль аккаунта больше не принимается, нужен Personal Access Token. Решение: соз`git remote set-url origin https://github.com/sergaziyevdias/osarch-sergaziyev.git`.
+1. **Команды Git в неправильной папке.** `git status`, `git add`, `git commit`, `git push` я запускал в домашней папке `~` и получил `fatal: not a git repository`. Git работает только внутри папки реп1. **Команды Git в неправильной папке.** `git status`, `git add`, `git commit`, `git push` я запускал в домашн� `Password authentication is not supported for Git operations`. Пароль аккаунта больше не принимается, нужен Personal Access Token. Решение: создать токен (Settings → Developer settings → Tokens, право `repo`) и вставить его вместо пароля.
+3. **Смена логина GitHub.** Я переименовал аккаунт, и старый адрес репозитория перестал быть правильным. Решение: `git remote set-url origin https://github.com/sergaziyevdias/osarch-sergaziyev.git`.
 4. **Объём диска и свободное место.** Сначала легко взять число 245 ГБ, но это ёмкость, а не свободное место. Свободное место на томе: 178,86 ГБ.
 
 ## Доказательства
