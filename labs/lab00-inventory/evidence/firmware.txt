@@ -1,0 +1,4 @@
+      Model Name: MacBook Air
+      Model Identifier: Mac14,2
+      Chip: Apple M2
+      System Firmware Version: 20457.1.29
